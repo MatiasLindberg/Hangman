@@ -12,19 +12,28 @@
 
 extern SDL_Window* window;
 extern SDL_Renderer* renderer;
-extern SDL_Texture* hangmanTextures[7];
 extern SDL_Texture* hangman;
 
 extern TTF_Font* font;
 extern SDL_Texture* textTexture;
 extern SDL_Surface* text;
 extern SDL_Color color;
+extern SDL_Texture* wordTexture;
+extern SDL_Surface* wordText;
+extern SDL_Rect qLetterPos;
+extern SDL_Texture* infoTexture;
+extern SDL_Surface* infoText;
 
 extern int qNumber;
+extern char msg[27];
 
 bool InitWindow();
 bool InitTextures();
 bool InitText();
+bool InitWordText();
+
+void UpdateWordText();
 void UpdateHangman();
+void UpdateGuessed();
 
 #endif

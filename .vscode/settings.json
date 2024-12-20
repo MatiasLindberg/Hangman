@@ -2,6 +2,7 @@
     "files.associations": {
         "graphics.h": "c",
         "game.h": "c",
-        "sdl_keyboard.h": "c"
+        "sdl_keyboard.h": "c",
+        "stdlib.h": "c"
     }
 }

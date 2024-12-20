@@ -1,11 +1,36 @@
 #include "game.h"
 
+void RandomWord() {
+  char buffer[50];
+  int findLine = rand() % 5000;
+
+  FILE* file;
+
+  file = fopen("Assets/words.txt", "r");
+  int currLine = 1;
+
+  while (fgets(buffer, 50, file)) {
+    if (currLine == findLine) {
+      buffer[strcspn(buffer, "\n")] = '\0';
+      word = malloc(strlen(buffer) + 1);
+      strcpy(word, buffer);
+      break;
+    }
+    currLine++;
+  }
+  fclose(file);
+}
+
 void SetUpGame() {
-  word = "SANA";
+  RandomWord();
+  for (int i = 0; i < strlen(word); i++) {
+    word[i] = toupper(word[i]);
+  }
+
+  printf("%s \n", word);
 
   qNumber = 0;
-
-  UpdateHangman();
+  msg[0] = '\0';
 
   size_t length = strlen(word);
   wordRight = (int*)malloc(length * sizeof(int));
@@ -18,10 +43,15 @@ void SetUpGame() {
   for (size_t i = 0; i < 26; i++) {
     quessed[i] = 0;
   }
+  InitWordText();
+  UpdateHangman();
+  UpdateGuessed();
 }
 
 void QuessLetter(char c) {
-  quessed[c - 'a' + 1] = 1;
+  if (quessed[(c - 'A')] == 0) {
+    quessed[(c - 'A')] = 1;
+  }
   bool q = false;
   for (size_t i = 0; i < strlen(word); i++) {
     if (word[i] == c) {
@@ -32,6 +62,8 @@ void QuessLetter(char c) {
   if (!q) {
     qNumber++;
     UpdateHangman();
+  } else {
+    UpdateWordText();
   }
 }
 
