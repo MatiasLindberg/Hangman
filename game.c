@@ -27,8 +27,6 @@ void SetUpGame() {
     word[i] = toupper(word[i]);
   }
 
-  printf("%s \n", word);
-
   qNumber = 0;
   msg[0] = '\0';
 
